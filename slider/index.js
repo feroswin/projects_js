@@ -2,9 +2,25 @@ const arrowLeft = document.querySelector(".arrow-left");
 const arrowRight = document.querySelector(".arrow-right");
 const slider = document.querySelector(".slider");
 const slides = document.querySelectorAll(".slide").length;
-const circles = document.querySelectorAll(".slider-menu-item");
+const slidesItem = document.querySelectorAll(".slider-menu-item");
 
 let slideNumber = 0
+slidesItem[0].style.background = "#000000"
+
+slidesItem.forEach((el, i) => {
+  el.addEventListener("click", () => {
+    resetBg()
+    slider.style.transform = `translateX(-${i * 800}px)`
+    el.style.background = "#000000"
+    slideNumber = i
+  })
+})
+
+function resetBg() {
+  slidesItem.forEach(el => {
+    el.style.backgroundColor = "transparent"
+  })
+}
 
 function firstSlide() {
   slideNumber = 0
@@ -28,13 +44,15 @@ function prevSlide() {
 arrowRight.addEventListener("click", () => {
   slideNumber++;
   (slideNumber >= slides) ? firstSlide() : nextSlide();
-  console.log('right ',slideNumber)
+  resetBg()
+  slidesItem[slideNumber].style.backgroundColor = "#000000"
 })
 
 arrowLeft.addEventListener("click", () => {
   slideNumber--;
   (slideNumber < 0) ? lastSlide() : prevSlide();
-  console.log('left ',slideNumber)
+  resetBg()
+  slidesItem[slideNumber].style.backgroundColor = "#000000"
 })
 
 

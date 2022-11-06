@@ -21,7 +21,7 @@
 
 .frame {
     width: 800px;
-    height: 600px;
+    height: auto;
     overflow: hidden;
 }
 
@@ -54,12 +54,5 @@
     height: 10px;
     border-radius:50%;
     border: 1px solid #000
-}
-
-.slider-circle {
-    width:80%;
-    height:80%;
-    border-radius: 50%;
-    background: red;
 }
 
