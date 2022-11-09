@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="./src/styles/style.css">
+</head>
+<body>
+  <div class="weather-container">
+    <nav class="weather-nav">
+      <div class="nav-section">
+        <svg class="loop" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15.1337 13.3663L11.9606 10.1931C12.6162 9.205 13 8.02188 13 6.75C13 3.30375 10.1962 0.5 6.75 0.5C3.30375 0.5 0.5 3.30375 0.5 6.75C0.5 10.1962 3.30375 13 6.75 13C8.02188 13 9.205 12.6162 10.1931 11.9606L13.3663 15.1337C13.8538 15.6219 14.6462 15.6219 15.1337 15.1337C15.6219 14.6456 15.6219 13.8544 15.1337 13.3663ZM2.375 6.75C2.375 4.3375 4.3375 2.375 6.75 2.375C9.1625 2.375 11.125 4.3375 11.125 6.75C11.125 9.1625 9.1625 11.125 6.75 11.125C4.3375 11.125 2.375 9.1625 2.375 6.75Z" fill="#8A95F9"/>
+        </svg>
+        <input type="text" class="nav-input">
+      </div>
+      <div class="nav-section">
+        <input type="button" value="Weather" class="nav-item">
+        <input type="button" value="News" class="nav-item">
+        <input type="button" value="Photos" class="nav-item">
+      </div>
+      <div class="nav-section">
+        <input type="button" value="Settings" class="nav-item">
+      </div>
+    </nav>
+    <div class="frames">
+      <div class="weather-frame">
+        <img src="./src/img/mountains.jpg" alt="" class="weather-bg">
+        <div class="weather-head">
+          <div class="head-section">
+            <div id="temp-min" class="weather-character"></div>
+            <div id="temp-max" class="weather-character"></div>
+            <div class="weather-character">
+              <img src="./src/img/manometer.png" alt="" width="30px">
+              <div id="pressure"></div>
+            </div>
+          </div>
+          <div class="head-section">
+            <div class="city"></div>
+            <div class="weather"></div>
+            <div class="temp"></div>
+            <div class="feels-like"></div>
+          </div>
+          <div class="head-section">
+            <div class="weather-character">
+              <img src="./src/img/wind2.png" alt="">
+              <div id="wind"></div>
+            </div>
+            <div class="weather-character">
+              <img src="./src/img/droplet.png" alt="">
+              <div id="humidity"></div>
+            </div>
+            <div class="weather-character">
+              <img src="./src/img/eye2.png" alt="">
+              <div id="visibility"></div>
+            </div>
+          </div>
+        </div>
+        <div class="weather-main">
+
+        </div>
+      </div>
+      <div class="news-frame"></div>
+      <div class="photos-frame"></div>
+      <div class="settings-frame"></div>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
