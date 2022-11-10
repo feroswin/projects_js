@@ -5,16 +5,26 @@ const temp = document.querySelector(".temp");
 const feels_like = document.querySelector(".feels-like");
 const navItems = document.querySelectorAll(".nav-item")
 
-navItems[0].classList.toggle('active-item')
+const tempMin = document.getElementById('temp-min')
+const tempMax = document.getElementById('temp-max')
+const pressure = document.getElementById('pressure')
+const wind = document.getElementById('wind')
+const humidity = document.getElementById('humidity')
+const visibility = document.getElementById('visibility')
 
-const defaultCity = 'London,uk'
+navItems[0].classList.add('active-item')
+
+let defaultCity = 'London,uk'
 
 const windDirections = ['N', 'NEE', 'NE', 'EES', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'WN', 'NNW'];
 
-function fetchData (value = defaultCity) {
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=c94211c95787a1b27aa2e4ed226f63b7&units=metric`)
+async function fetchData (value = defaultCity) {
+  await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=c94211c95787a1b27aa2e4ed226f63b7&units=metric`)
     .then(response => response.json())
-    .then(data => insertData(data))
+    .then(data => {
+      (data.cod !== '404') ? insertData(data) : alert(data.message)
+      defaultCity = value
+    })
 }
 fetchData();  // fetch default data
 
@@ -32,14 +42,15 @@ function calculateWindDirection(windDeg) {
 }
 
 
-// function calculateTimeStamp (stamp) {
-//   const seconds = stamp - (Math.round(stamp/86400)*86400);
-//   let hours = Math.round(seconds / 3600);
-//   let minutes = Math.round((seconds-(hours * 3600))/60);
-//   if (hours < 10) hours = '0' + hours;
-//   if (minutes < 10) minutes = '0' + minutes;
-//   return [hours, minutes].join(':');
-// }
+function timeConverter(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp * 1000);
+  var year = a.getFullYear();
+  var month = a.getMonth();
+  var date = a.getDate();
+  var dayWeek = new Date(year, month, date).toString().split(' ')[0]
+  console.log(dayWeek)
+}
+timeConverter('1668089474')
 
 
 function insertData (data) {
@@ -49,14 +60,13 @@ function insertData (data) {
   temp.innerHTML = Math.round(data.main.temp) + '&deg;C';
   feels_like.innerHTML = 'Feels like ' + Math.round(data.main.feels_like) + '&deg;C';
   addIconWeather(data.weather[0].icon);
-  document.getElementById('temp-min').innerHTML = 'Min: ' + Math.round(data.main.temp_min) + '&deg;C';
-  document.getElementById('temp-max').innerHTML = 'Max: ' + Math.round(data.main.temp_max) + '&deg;C';
-  document.getElementById('pressure').textContent = Math.round(data.main.pressure * 0.75) + ' mmHg';
-  const windDirection = calculateWindDirection(data.wind.deg);
+  tempMin.innerHTML = 'Min: ' + Math.round(data.main.temp_min) + '&deg;C';
+  tempMax.innerHTML = 'Max: ' + Math.round(data.main.temp_max) + '&deg;C';
+  pressure.textContent = Math.round(data.main.pressure * 0.75) + ' mmHg';
   const windSpeed = data.wind.speed.toFixed(1) + 'm/s ';
-  document.getElementById('wind').textContent = windSpeed + windDirection;
-  document.getElementById('humidity').textContent = data.main.humidity + ' %';
-  document.getElementById('visibility').textContent = (data.visibility / 1000).toFixed(1) + ' km';
+  wind.textContent = windSpeed + calculateWindDirection(data.wind.deg);
+  humidity.textContent = data.main.humidity + ' %';
+  visibility.textContent = (data.visibility / 1000).toFixed(1) + ' km';
 }
 
 
